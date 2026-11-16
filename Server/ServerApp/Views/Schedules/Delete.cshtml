@@ -1,0 +1,12 @@
+@model Schedule
+@{ ViewData["Title"] = "Видалити графік"; }
+
+<h2>Видалити слот?</h2>
+<div class="card p-4 bg-white" style="max-width: 500px;">
+    <p>Слот: <strong>@Model.Date (@Model.TimeSlot)</strong> — @Model.Doctor?.Name</p>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="ID" />
+        <button type="submit" class="btn btn-danger">Видалити</button>
+        <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+    </form>
+</div>

@@ -57,7 +57,7 @@ public class AuthController : Controller
             Expires = DateTimeOffset.UtcNow.AddHours(2)
         });
 
-        return Redirect("/auth/dashboard");
+        return Redirect("/Doctors");
     }
 
     [Authorize]

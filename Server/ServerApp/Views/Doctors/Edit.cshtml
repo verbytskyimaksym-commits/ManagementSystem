@@ -1,0 +1,21 @@
+@model Doctor
+@{ ViewData["Title"] = "Редагувати лікаря"; }
+
+<h2>Редагувати лікаря</h2>
+<form asp-action="Edit" method="post" class="card p-4 bg-white" style="max-width: 500px;">
+    <input type="hidden" asp-for="ID" />
+    <div class="mb-3">
+        <label class="form-label">Ім'я</label>
+        <input asp-for="Name" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input asp-for="Email" type="email" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Пароль (PasswordHash)</label>
+        <input asp-for="PasswordHash" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Оновити</button>
+    <a asp-action="Index" class="btn btn-secondary mt-2">Назад</a>
+</form>

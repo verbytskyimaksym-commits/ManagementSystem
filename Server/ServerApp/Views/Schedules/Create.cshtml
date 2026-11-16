@@ -1,0 +1,27 @@
+@model Schedule
+@{ ViewData["Title"] = "Додати графік"; }
+
+<h2>Додати слот графіка</h2>
+<form asp-action="Create" method="post" class="card p-4 bg-white" style="max-width: 500px;">
+    <div class="mb-3">
+        <label class="form-label">Лікар</label>
+        <select asp-for="DoctorID" asp-items="ViewBag.Doctors" class="form-select"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Дата (YYYY-MM-DD)</label>
+        <input asp-for="Date" class="form-control" placeholder="2026-11-25" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Часовий слот</label>
+        <input asp-for="TimeSlot" class="form-control" placeholder="14:00 - 15:00" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Статус</label>
+        <select asp-for="Status" class="form-select">
+            <option value="Available">Available</option>
+            <option value="Booked">Booked</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Зберегти</button>
+    <a asp-action="Index" class="btn btn-secondary mt-2">Назад</a>
+</form>
