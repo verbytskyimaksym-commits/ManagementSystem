@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientApp.Views.SchedulesPage"
+             Title="Мій графік">
+    <VerticalStackLayout Padding="20" Spacing="10">
+        <Label Text="Оберіть слот для створення/підтвердження запису:" FontSize="16" FontAttributes="Bold" />
+        <CollectionView ItemsSource="{Binding Schedules}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,5" Padding="15" BorderColor="LightGray">
+                        <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+                            <VerticalStackLayout HorizontalOptions="StartAndExpand">
+                                <Label Text="{Binding Date}" FontAttributes="Bold" FontSize="16" />
+                                <Label Text="{Binding TimeSlot}" />
+                                <Label Text="{Binding Status}" TextColor="Gray" />
+                            </VerticalStackLayout>
+                            <Button Text="Оформити запис"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.OpenAppointmentCommand}"
+                                    CommandParameter="{Binding .}" />
+                        </HorizontalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
