@@ -47,3 +47,7 @@ INSERT INTO Appointments (DoctorID, ScheduleID, PatientName, AppointmentDate, St
 (1, 2, 'Іван Петренко', '2026-11-20 10:00', 'Confirmed'),
 (1, 1, 'Марія Сидоренко', '2026-11-20 09:00', 'Pending'),
 (2, 3, 'Олег Ткаченко', '2026-11-21 12:00', 'Pending');
+
+CREATE INDEX IF NOT EXISTS idx_doctors_email ON Doctors(Email);
+CREATE INDEX IF NOT EXISTS idx_schedules_doctor ON Schedules(DoctorID);
+CREATE INDEX IF NOT EXISTS idx_appointments_doctor ON Appointments(DoctorID);
