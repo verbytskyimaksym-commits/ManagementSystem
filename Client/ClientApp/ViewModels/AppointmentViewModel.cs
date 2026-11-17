@@ -1,4 +1,5 @@
 using ClientApp.Models;
+using ClientApp.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -6,6 +7,8 @@ namespace ClientApp.ViewModels;
 
 public partial class AppointmentViewModel : ObservableObject
 {
+    private readonly ApiService _apiService = new();
+
     [ObservableProperty] private int doctorId;
     [ObservableProperty] private int scheduleId;
     [ObservableProperty] private string scheduleInfo = string.Empty;
@@ -30,8 +33,15 @@ public partial class AppointmentViewModel : ObservableObject
             return;
         }
 
-        StatusMessage = $"Запис для {PatientName} підготовлено (локальний тест).";
-        await Task.Delay(500);
-        await Application.Current!.MainPage!.Navigation.PopAsync();
+        bool ok = await _apiService.CreateAppointmentAsync(DoctorId, ScheduleId, PatientName, AppointmentDate);
+        if (ok)
+        {
+            await Application.Current!.MainPage!.DisplayAlert("Успіх", "Запис підтверджено та збережено в БД!", "OK");
+            await Application.Current!.MainPage!.Navigation.PopAsync();
+        }
+        else
+        {
+            StatusMessage = "Не вдалося зберегти запис.";
+        }
     }
 }

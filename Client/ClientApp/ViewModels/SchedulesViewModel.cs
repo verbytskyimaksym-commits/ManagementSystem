@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using ClientApp.Models;
+using ClientApp.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -7,13 +8,23 @@ namespace ClientApp.ViewModels;
 
 public partial class SchedulesViewModel : ObservableObject
 {
+    private readonly ApiService _apiService = new();
     public ObservableCollection<ScheduleItem> Schedules { get; } = new();
 
-    public SchedulesViewModel()
+    [RelayCommand]
+    public async Task LoadSchedulesAsync()
     {
-        // Тимчасові тестові дані для перевірки UI (у Завданні 9 замінимо на API)
-        Schedules.Add(new ScheduleItem { ID = 1, DoctorID = 1, Date = "2026-11-20", TimeSlot = "09:00 - 10:00", Status = "Available" });
-        Schedules.Add(new ScheduleItem { ID = 2, DoctorID = 1, Date = "2026-11-20", TimeSlot = "10:00 - 11:00", Status = "Booked" });
+        try
+        {
+            var items = await _apiService.GetSchedulesAsync();
+            Schedules.Clear();
+            foreach (var item in items)
+                Schedules.Add(item);
+        }
+        catch (Exception ex)
+        {
+            await Application.Current!.MainPage!.DisplayAlert("Помилка", ex.Message, "OK");
+        }
     }
 
     [RelayCommand]
